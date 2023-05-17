@@ -1,0 +1,40 @@
+   @model List<FileModel>
+
+   @{
+       ViewData["Title"] = "File Management";
+   }
+
+   <h1>File Management</h1>
+
+   <div>
+       <h2>Files</h2>
+       <table>
+           <thead>
+               <tr>
+                   <th>File Name</th>
+                   <th>Actions</th>
+               </tr>
+           </thead>
+           <tbody>
+               @foreach (var file in Model)
+               {
+                   <tr>
+                       <td>@file.FileName</td>
+                       <td>
+                           <a href="@Url.Action("Download", "FileManager", new { fileName = file.FileName })">Download</a>
+                           <a href="@Url.Action("Delete", "FileManager", new { fileName = file.FileName })">Delete</a>
+                       </td>
+                   </tr>
+               }
+           </tbody>
+       </table>
+   </div>
+
+   <div>
+       <h2>Create Container</h2>
+       <form method="post" action="@Url.Action("CreateContainer", "FileManager")">
+           <label for="containerName">Container Name:</label>
+           <input type="text" id="containerName" name="containerName" required />
+           <input type="submit" value="Create" />
+       </form>
+   </div>
